@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>かわいい503エラー</title>
+    <title>503エラー</title>
     <style>
         body {
             font-family: 'Helvetica', sans-serif;
@@ -32,7 +32,7 @@
 
         .kawaii-image {
             max-width: 100%;
-            max-height: 60vh; /* 画像の高さの最大値を設定 */
+            max-height: 60vh;
             margin-top: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -78,10 +78,16 @@
 <body>
     <h1>503</h1>
     <p>ごめんなさい、サービスは現在利用できません。</p>
+    <p>原因はDDOSまたはアクセス過多などが考えられます。</p>
+    <p>しばらくしてから再度アクセスしてみてください。</p>
     <img class="kawaii-image" id="animalImage" alt="かわいい動物">
-    <button onclick="getRandomAnimal()">再読み込み</button>
+    <button onclick="redirectToNewSite()">再読み込み</button>
 
     <script>
+        function redirectToNewSite() {
+            window.location.href = "https://disnana.com/home-2nd";
+        }
+
         function getRandomAnimal() {
             // ランダムに猫または犬の画像を取得して表示
             const randomAnimal = Math.random() < 0.5 ? 'cat' : 'dog';
