@@ -78,22 +78,28 @@
 <body>
     <h1>503</h1>
     <p>ごめんなさい、サービスは現在利用できません。</p>
-    <img class="kawaii-image" id="catImage" alt="かわいいキャット">
-    <button onclick="reloadPage()">再読み込み</button>
+    <img class="kawaii-image" id="animalImage" alt="かわいい動物">
+    <button onclick="getRandomAnimal()">再読み込み</button>
 
     <script>
-        function reloadPage() {
-            location.reload();
+        function getRandomAnimal() {
+            // ランダムに猫または犬の画像を取得して表示
+            const randomAnimal = Math.random() < 0.5 ? 'cat' : 'dog';
+            const apiUrl = randomAnimal === 'cat'
+                ? 'https://api.thecatapi.com/v1/images/search'
+                : 'https://dog.ceo/api/breeds/image/random';
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const animalImage = document.getElementById('animalImage');
+                    animalImage.src = randomAnimal === 'cat' ? data[0].url : data.message;
+                })
+                .catch(error => console.error('Error fetching animal image:', error));
         }
 
-        // Cat APIからランダムな画像を取得して表示
-        fetch('https://api.thecatapi.com/v1/images/search')
-            .then(response => response.json())
-            .then(data => {
-                const catImage = document.getElementById('catImage');
-                catImage.src = data[0].url;
-            })
-            .catch(error => console.error('Error fetching cat image:', error));
+        // 初回ページロード時にランダムな動物の画像を表示
+        getRandomAnimal();
     </script>
 </body>
 </html>
