@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>かわいい503エラー</title>
+    <title>503エラー</title>
     <style>
         body {
             font-family: 'Helvetica', sans-serif;
@@ -39,6 +39,22 @@
             animation: float 3s infinite;
         }
 
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d63447;
+        }
+
         @media only screen and (max-width: 600px) {
             h1 {
                 font-size: 6em;
@@ -62,9 +78,22 @@
 <body>
     <h1>503</h1>
     <p>ごめんなさい、サービスは現在利用できません。</p>
-    <img class="kawaii-image" src="https://placekitten.com/400/300" alt="かわいいキャット">
+    <img class="kawaii-image" id="catImage" alt="かわいいキャット">
+    <button onclick="reloadPage()">再読み込み</button>
+
     <script>
-        // JavaScriptでさらなる動きを追加する場合、ここにコードを追加してください
+        function reloadPage() {
+            location.reload();
+        }
+
+        // Cat APIからランダムな画像を取得して表示
+        fetch('https://api.thecatapi.com/v1/images/search')
+            .then(response => response.json())
+            .then(data => {
+                const catImage = document.getElementById('catImage');
+                catImage.src = data[0].url;
+            })
+            .catch(error => console.error('Error fetching cat image:', error));
     </script>
 </body>
 </html>
